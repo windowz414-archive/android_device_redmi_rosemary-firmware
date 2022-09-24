@@ -6,7 +6,9 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
 
-FIRMWARE_IMAGES := $(wildcard vendor/redmi/rosemary-firmware/images/*)
+FW_PATH := device/redmi/rosemary-firmware
+
+FIRMWARE_IMAGES := $(wildcard $(FW_PATH)/images/*)
 
 AB_OTA_PARTITIONS += \
     $(foreach f, $(notdir $(FIRMWARE_IMAGES)), $(basename $(f)))
