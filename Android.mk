@@ -1,10 +1,20 @@
+#
+# Copyright (C) 2022 Paranoid Android
+# Copyright (C) 2022 Beru Hinode
+#
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: GPL-2.0-only
+#
+
 LOCAL_PATH := $(call my-dir)
 
-define target_radio_files
-$(notdir \
-        $(wildcard $(LOCAL_PATH)/*.bin) \
-        $(wildcard $(LOCAL_PATH)/*.img)
-)
-endef
+ifneq ($(filter rosemary,$(TARGET_DEVICE)),)
 
--include $(LOCAL_PATH)/rosemary-firmware.mk
+$(info Including firmware for rosemary...)
+
+FIRMWARE_IMAGES := $(wildcard $(LOCAL_PATH)/images/*)
+
+$(foreach f, $(notdir $(FIRMWARE_IMAGES)), \
+    $(call add-radio-file,images/$(f)))
+
+endif
